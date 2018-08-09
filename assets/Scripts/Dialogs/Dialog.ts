@@ -3,19 +3,16 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Dialog extends cc.Component {
 
-    @property(cc.Node)
-    dialog: cc.Node = null
 
-    openDialog() {
-        let open = cc.callFunc(() => this.dialog.active = true)
+    openDialog(cb) {
         let fadeIn = cc.fadeIn(0.2)
-        var seq = cc.sequence(open,fadeIn)
-        this.node.runAction(seq)
-        
+        this.node.runAction(fadeIn)
+        cb(this)
     }
     closeDialog() {
-        var fadeOut = cc.fadeOut(0.05)
-        this.node.runAction(fadeOut)
-        this.dialog.active = false
+        var fadeOut = cc.fadeOut(0.15)
+        let remove = cc.removeSelf()
+        let seq = cc.sequence(fadeOut, remove)
+        this.node.runAction(seq)
     }
 }

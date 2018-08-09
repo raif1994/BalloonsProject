@@ -1,7 +1,7 @@
 import FinishDialog from "../Dialogs/FinishDialog";
 import Balloon from "../Core/Balloon";
-import AudioController from "../AudioControl/AudioController";
-import MainController from "../Core/MainController";
+import AudioController from "../Controllers/AudioController";
+import MainController from "../Controllers/MainController";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -12,21 +12,11 @@ export default class GameScene extends cc.Component {
     @property(cc.Node) balloonsParent: cc.Node = null
     @property(cc.Label) scoreText: cc.Label = null
     @property([cc.Sprite]) lifesSprite: cc.Sprite[] = []
-    @property(FinishDialog) finishDialog: FinishDialog = null
-    @property(cc.AudioSource) music: cc.AudioSource = null
 
     onLoad() {
 
         MainController.game.gameScene = this
         MainController.game.startGame()
-        AudioController.playMusic(this.music)
-    }
-    public updateScoreLabel(score) {
-        this.scoreText.string = "Результат : " + score
-    }
-    public showFinish(score) {
-        this.balloonsParent.removeAllChildren()
-        this.finishDialog.finishDialogOpen(score)
     }
     createBalloon() {
         if (!MainController.game.finish) {
@@ -39,13 +29,23 @@ export default class GameScene extends cc.Component {
             let balloonPositionX = Math.floor(Math.random() * (screenWidth - balloon.width)) - screenWidth / 2 + balloon.width / 2
             balloon.setPosition(balloonPositionX, -screenHeight / 2 - balloon.height)
 
-            balloon.getComponent(Balloon).level = MainController.game.level
-            balloon.getComponent(Balloon).levelText.string = MainController.game.level.toString()
-            let move = cc.moveTo((Math.random() * 4) + MainController.game.speed, balloonPositionX, screenHeight - balloon.height)
+            balloon.getComponent(Balloon).hitCount = MainController.game.balloonHitCount
+            balloon.getComponent(Balloon).hitCountLabel.string = MainController.game.balloonHitCount.toString()
+
+            let move = cc.moveTo((Math.random() * 4) + MainController.game.balloonFlyTime, balloonPositionX, screenHeight - balloon.height)
             let remove = cc.removeSelf()
             let finish = cc.callFunc(() => MainController.game.lossingLifes())
-            var seq = cc.sequence(move, finish, remove)
+            let seq = cc.sequence(move, finish, remove)
             balloon.runAction(seq)
         }
+    }
+    public updateScoreLabel(score) {
+        this.scoreText.string = "Результат : " + score
+    }
+    public showFinish(score) {
+        MainController.dC.openDialog("FinishDialog", score)
+    }
+    openPauseDialog() {
+        MainController.dC.openDialog("PauseDialog")
     }
 }

@@ -1,5 +1,5 @@
 import Dialog from "./Dialog";
-import MainController from "../Core/MainController";
+import MainController from "../Controllers/MainController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -7,10 +7,10 @@ const { ccclass, property } = cc._decorator;
 export default class PauseDialog extends Dialog {
 
 
-    pauseDialogOpen() {
-        let open = cc.callFunc(() => this.openDialog())
+    openDialog(cb = null) {
+        let open = cc.callFunc(() => super.openDialog(cb))
         let pause = cc.callFunc(() => cc.game.pause())
-        var seq = cc.sequence(open, cc.delayTime(0.2), pause)
+        let seq = cc.sequence(open, cc.delayTime(0.2), pause)
         this.node.runAction(seq)
     }
 

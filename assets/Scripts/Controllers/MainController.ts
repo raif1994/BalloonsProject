@@ -1,6 +1,6 @@
-import Game from "./Game";
-import GameData from "./GameData";
-import DialogsController from "../Controllers/DialogsController";
+import Game from "../Core/Game";
+import GameData from "../Core/GameData";
+import DialogsController from "./DialogsController";
 
 export default class MainController {
 
@@ -13,6 +13,7 @@ export default class MainController {
 
     private _gameData = new GameData()
     static get gameData() { return this.instance._gameData }
+
     private _dC = new DialogsController()
     static get dC() { return this.instance._dC }
 }

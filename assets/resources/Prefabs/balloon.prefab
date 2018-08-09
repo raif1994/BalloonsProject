@@ -282,13 +282,13 @@
       "__id__": 1
     },
     "_enabled": true,
-    "level": 0,
-    "levelText": {
+    "hitCount": 0,
+    "hitCountLabel": {
       "__id__": 3
     }
   },
   {
-    "__type__": "cc.AudioSource",
+    "__type__": "885b0zUHLpG/ZlGZx3G8szu",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -302,7 +302,8 @@
     "_mute": false,
     "_loop": false,
     "playOnLoad": false,
-    "preload": true
+    "preload": true,
+    "isMusic": false
   },
   {
     "__type__": "cc.PrefabInfo",

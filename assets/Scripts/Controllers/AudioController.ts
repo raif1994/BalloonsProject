@@ -1,8 +1,8 @@
 
 export default class AudioController {
 
-    private static _effectVolume: number = cc.sys.localStorage.getItem("SoundVolume")
-    private static _musicVolume: number = cc.sys.localStorage.getItem("MusicVolume")
+    private static _effectVolume: number = JSON.parse(cc.sys.localStorage.getItem("SoundVolume"))
+    private static _musicVolume: number = JSON.parse(cc.sys.localStorage.getItem("MusicVolume"))
     private static _currentMusic: cc.AudioSource = null
 
     static set effectVolume(value) {
@@ -23,7 +23,7 @@ export default class AudioController {
     }
     static playMusic(music) {
         this._currentMusic = music
-        music.volume  = this._musicVolume
+        music.volume = this._musicVolume
         music.play()
     }
 }

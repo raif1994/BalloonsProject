@@ -3,11 +3,9 @@ export default class GameData {
     recordItemCount: number = 20
     data: RecordsData[] = []
 
-    constructor()
-    {
+    constructor() {
         this.data = JSON.parse(cc.sys.localStorage.getItem('RecordsData'))
         if (this.data == null) { this.firstInit() }
-    
     }
 
     public save() { cc.sys.localStorage.setItem('RecordsData', JSON.stringify(this.data)); }
@@ -19,8 +17,7 @@ export default class GameData {
         this.save()
     }
     private firstInit() {
-        this.data = []
-        for (let i = 0; i < this.recordItemCount; i++) { this.data.push({ name: "?????", score: 0 }) }
+        this.data = new Array(this.recordItemCount).fill({name: "?????", score: 0})
         this.save()
     }
 }

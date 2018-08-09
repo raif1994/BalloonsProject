@@ -1,18 +1,18 @@
-import AudioController from "../AudioControl/AudioController";
+import AudioController from "../Controllers/AudioController";
+import MainController from "../Controllers/MainController";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class MenuScene extends cc.Component {
 
-    @property(cc.Node) balloon1: cc.Node
-    @property(cc.Node) balloon2: cc.Node
-    @property(cc.Node) label: cc.Node
-    @property(cc.Node) settingsBtn: cc.Node
-    @property(cc.Node) recordBtn: cc.Node
-    @property(cc.Node) playBtn: cc.Node
-    @property(cc.BlockInputEvents) block: cc.BlockInputEvents
-    @property(cc.AudioSource) music: cc.AudioSource = null
+    @property(cc.Node) balloon1: cc.Node = null
+    @property(cc.Node) balloon2: cc.Node = null
+    @property(cc.Node) label: cc.Node = null
+    @property(cc.Node) settingsBtn: cc.Node = null
+    @property(cc.Node) recordBtn: cc.Node = null
+    @property(cc.Node) playBtn: cc.Node = null
+    @property(cc.BlockInputEvents) block: cc.BlockInputEvents = null
 
     onLoad() {
         let r = Math.floor(Math.random() * 255) - 0
@@ -21,7 +21,6 @@ export default class MenuScene extends cc.Component {
         this.balloon1.color = cc.color(r, g, b, 255)
         this.balloon2.color = cc.color(r, g, b, 255)
         this.startAnimation()
-        AudioController.playMusic(this.music)
     }
 
     startAnimation() {
@@ -63,6 +62,12 @@ export default class MenuScene extends cc.Component {
     }
     playBtnClick() {
         cc.director.loadScene("Game")
+    }
+    openSettingsDialog() {
+        MainController.dC.openDialog("SettingsDialog")
+    }
+    openRecordsDialog() {
+        MainController.dC.openDialog("RecordsDialog")
     }
 
 }
