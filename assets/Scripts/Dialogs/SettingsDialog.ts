@@ -15,10 +15,10 @@ export default class SettingsDialog extends Dialog {
     }
 
     soundToggleHandler() {
-        this.soundToggle.isChecked ? AudioController.effectVolume = 1 : AudioController.effectVolume = 0
+        AudioController.effectVolume =  this.soundToggle.isChecked ? 1 : 0
     }
     musicToggleHandler() {
-        this.musicToggle.isChecked ? AudioController.musicVolume = 1 : AudioController.musicVolume = 0
+        AudioController.musicVolume =  this.musicToggle.isChecked ? 1 : 0
     }
 
 
